@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Jody Graham — Artist</title>
+<meta name="description" content="Drawing-led practice across mixed media, installation and performance. Explore works, classes, subscriptions, a virtual gallery, and digital editions."/>
+<link rel="canonical" href="https://jodygraham.art/">
+<style>
+/* ===== Minimal, image-first style (light theme) — single-file ===== */
+:root{
+  --bg:#ffffff; --ink:#0b0d12; --muted:#616a7a; --stroke:rgba(0,0,0,.12);
+  --pill:#f2f4f8; --surface:#fbfcff; --focus:#0a84ff; --ok:#32d74b; --warn:#ff9f0a; --danger:#ff453a;
+  --maxw:1120px; --r:16px; --rsm:12px;
+  --s-1:.92rem; --s0:1rem; --s1:1.2rem; --s2:1.6rem; --s3:2.4rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b0d12; --ink:#eef3ff; --muted:#aab3c7; --stroke:rgba(255,255,255,.16); --pill:#171b23; --surface:#0f121a; }
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding:0 20px}
+
+/* Header / Nav */
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);background:color-mix(in oklab,var(--bg) 88%, transparent);border-bottom:1px solid var(--stroke)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-weight:800;font-size:var(--s1)}
+.menu{display:flex;gap:16px;align-items:center}
+.menu a{padding:8px 10px;border-radius:8px}
+.menu a:hover{background:var(--pill)}
+.menu-toggle{display:none;border:1px solid var(--stroke);border-radius:10px;padding:8px 10px;background:var(--pill)}
+@media (max-width:760px){
+  .menu{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--stroke);padding:12px 20px;flex-direction:column;gap:8px}
+  .menu.open{display:flex}
+  .menu-toggle{display:inline-block}
+}
+
+/* Sections */
+main > section{display:none;padding:32px 0} 
+main > section.active{display:block}
+h1{font-size:var(--s3);line-height:1.08;margin:0 0 8px}
+h2{font-size:var(--s2);line-height:1.12;margin:0 0 8px}
+.lede{color:var(--muted);margin:0 0 18px}
+footer{border-top:1px solid var(--stroke);padding:18px 0;color:var(--muted);font-size:.92rem}
+
+/* Buttons / Pills */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--stroke);background:var(--pill);font-weight:600}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:transparent}
+.btn.ok{background:var(--ok);color:#000;border-color:transparent}
+.btn.warn{background:var(--warn);color:#000;border-color:transparent}
+.btn.danger{background:var(--danger);color:#fff;border-color:transparent}
+.btn:hover{transform:translateY(-1px)} .btn:active{transform:translateY(0)}
+.pill{border:1px solid var(--stroke);background:var(--pill);padding:8px 12px;border-radius:999px}
+.pill[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+/* Grids / Cards */
+.grid{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:580px){.grid{grid-template-columns:1fr}}
+.card{border:1px solid var(--stroke);border-radius:var(--r);overflow:hidden;background:var(--bg)}
+.card figure{margin:0}
+.card img{aspect-ratio:4/3;object-fit:cover;background:var(--surface)}
+.card .meta{padding:12px 12px 14px}
+.card h3{margin:0 0 6px;font-size:var(--s1)}
+.card p{margin:0;color:var(--muted)}
+
+/* Pricing */
+.pricegrid{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
+@media (max-width:980px){.pricegrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:720px){.pricegrid{grid-template-columns:1fr}}
+.tier{border:1px solid var(--stroke);border-radius:16px;padding:16px;background:var(--bg)}
+.tier h3{margin:0 0 6px}
+.tier .price{font-size:1.6rem;font-weight:800;margin:6px 0 10px}
+.tier ul{margin:0;padding-left:18px;color:var(--muted)}
+.tier .cta{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+
+/* List blocks */
+.list{display:grid;gap:12px}
+.item{border:1px solid var(--stroke);border-radius:var(--rsm);padding:14px;background:var(--bg)}
+.item h3{margin:0 0 6px;font-size:var(--s1)} .item p{margin:0;color:var(--muted)}
+.footnote{font-size:.92rem;color:var(--muted)}
+
+/* Lightbox & Cart */
+.lightbox{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.6);backdrop-filter:blur(2px);z-index:100}
+.lightbox.open{display:grid}
+.lb-dialog{width:min(92vw,1040px);background:var(--bg);color:var(--ink);border-radius:16px;overflow:hidden;border:1px solid var(--stroke)}
+.lb-media{background:#000}
+.lb-media img{width:100%;max-height:78vh;object-fit:contain}
+.lb-caption{padding:12px 14px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lb-title{font-weight:700}
+
+/* Virtual gallery canvas */
+#vg{display:block;width:100%;aspect-ratio:16/9;background:#000;border:1px solid var(--stroke);border-radius:16px}
+
+/* Admin */
+.hidemark{outline:2px dashed #ff453a; outline-offset:-2px}
+#adminPill{position:fixed;right:16px;bottom:16px;z-index:120;display:none}
+.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+:root:not(.user-is-tabbing) *:focus{outline:none!important}
+table{border-collapse:collapse;width:100%} td,th{border:1px solid var(--stroke);padding:8px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav" role="navigation" aria-label="Primary">
+    <a class="brand" href="#" data-route="home">Jody Graham</</a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="mainmenu">Menu</button>
+    <nav id="mainmenu" class="menu">
+      <a href="#home" data-route="home">Home</a>
+      <a href="#gallery" data-route="gallery">Gallery</a>
+      <a href="#sales" data-route="sales">Sales</a>
+      <a href="#classes" data-route="classes">Classes</a>
+      <a href="#virtual" data-route="virtual">Virtual</a>
+      <a href="#downloads" data-route="downloads">Downloads</a>
+      <a href="#exhibitions" data-route="exhibitions">Exhibitions</a>
+      <a href="#about" data-route="about">About</a>
+      <a href="#contact" data-route="contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section id="home" class="active">
+    <div class="wrap" style="padding:40px 0 12px">
+      <h1>Drawing-led practice, performance & teaching</h1>
+      <p class="lede">Series include <em>Getting Pinked</em>, <em>Burnt</em>, <em>Fly like a Bird</em>, and <em>Behind the Facade</em>. Explore the gallery, join live classes, and step into a virtual room.</p>
+      <div class="list">
+        <div class="item"><h3>Explore the works</h3><p><a class="btn" data-route="gallery" href="#gallery">Open Gallery</a></p></div>
+        <div class="item"><h3>Sales enquiries</h3><p><a class="btn" data-route="sales" href="#sales">Available & On Enquiry</a></p></div>
+        <div class="item"><h3>Classes & Subscriptions</h3><p><a class="btn" data-route="classes" href="#classes">Join a Class</a></p></div>
+        <div class="item"><h3>Virtual Gallery</h3><p><a class="btn" data-route="virtual" href="#virtual">Enter Room</a></p></div>
+        <div class="item"><h3>Apps & Digital Editions</h3><p><a class="btn" data-route="downloads" href="#downloads">App Store / Google Play & Digital Art</a></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="wrap">
+      <h1>Gallery</h1>
+      <p class="lede">Browse catalogued works. Some works are not listed for sale but can be arranged via galleries.</p>
+      <div class="filters" style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px">
+        <button class="pill" data-filter="all" aria-pressed="true">All</button>
+        <button class="pill" data-filter="Getting Pinked">Getting Pinked</button>
+        <button class="pill" data-filter="Burnt">Burnt</button>
+        <button class="pill" data-filter="Fly like a Bird">Fly like a Bird</button>
+        <button class="pill" data-filter="Behind the Facade">Behind the Facade</button>
+      </div>
+      <div id="galleryGrid" class="grid"></div>
+      <p class="footnote">Admin can hide/show entries locally during curation (press <strong>A</strong>).</p>
+    </div>
+  </section>
+
+  <!-- SALES -->
+  <section id="sales">
+    <div class="wrap">
+      <h1>Sales</h1>
+      <p class="lede">No prices listed online. For acquisitions and viewing appointments, contact the representing galleries.</p>
+      <div class="filters" style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px">
+        <button class="pill" data-sf="all" aria-pressed="true">All</button>
+        <button class="pill" data-sf="available">Available (via gallery)</button>
+        <button class="pill" data-sf="enquire">On enquiry</button>
+        <button class="pill" data-sf="catalogued">Catalogued (not listed)</button>
+        <select id="sfGallery" class="pill" style="color:var(--ink)">
+          <option value="">Any gallery</option>
+          <option>Nanda/Hobbs</option>
+          <option>Lost Bear Gallery</option>
+          <option>Linton & Kay</option>
+        </select>
+      </div>
+      <div id="salesGrid" class="grid"></div>
+    </div>
+  </section>
+
+  <!-- CLASSES & SUBSCRIPTIONS -->
+  <section id="classes">
+    <div class="wrap">
+      <h1>Classes & Subscriptions</h1>
+      <p class="lede">Join live online sessions, follow a guided 30-day course, or access a growing library of fundamentals and weekly extras. In-person group days are available on request.</p>
+
+      <h2>Join Live</h2>
+      <div class="list">
+        <article class="item">
+          <div class="grid" style="grid-template-columns:1fr 1fr">
+            <div>
+              <h3>Next sessions (Sydney time)</h3>
+              <ul class="footnote" id="clsSchedule">
+                <li><strong>Wed 7:00–8:30pm</strong> — Drawing Fundamentals (Zoom)</li>
+                <li><strong>Sat 10:00–12:00</strong> — Mixed Media Lab (Zoom)</li>
+              </ul>
+              <p><button class="btn primary" data-plan="single-class" data-label="Single Live Class (Online)">Join this week</button></p>
+              <p class="footnote">Link delivered by email after checkout. Replays available to subscribers.</p>
+            </div>
+            <div>
+              <div style="border:1px solid var(--stroke);border-radius:16px;overflow:hidden;background:#000">
+                <!-- Replace the src with your unlisted YouTube, Vimeo, or a Zoom “Live” RTMP player page -->
+                <iframe title="Live class player" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0"></iframe>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <h2 style="margin-top:24px">Pricing — Passes, Courses & Subscriptions (examples)</h2>
+      <div class="pricegrid" id="priceGrid">
+        <!-- Tiers are injected by JS below -->
+      </div>
+
+      <div class="list" style="margin-top:16px">
+        <article class="item">
+          <h3>FAQs</h3>
+          <ul>
+            <li><strong>Access:</strong> Subscriptions include a private portal for videos and replays. Platinum also includes scheduled live classes each month.</li>
+            <li><strong>Cancel anytime:</strong> Subscriptions are month-to-month; cancelling stops the next renewal.</li>
+            <li><strong>Refunds:</strong> Live one-off passes refundable up to 24h before start; subscriptions pro-rata refunds aren’t offered.</li>
+            <li><strong>In-person days:</strong> Hosts book a full day (10 people typical). Materials lists sent beforehand.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIRTUAL -->
+  <section id="virtual">
+    <div class="wrap">
+      <h1>Virtual Gallery</h1>
+      <p class="lede">Click inside the canvas to lock cursor; WASD / arrow keys to walk. Click a work to open details.</p>
+      <canvas id="vg"></canvas>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS -->
+  <section id="downloads">
+    <div class="wrap">
+      <h1>Downloads & Digital Editions</h1>
+      <p class="lede">Get the app. Collect authenticated digital editions (non-chain & blockchain). Learn how verification and uniqueness work.</p>
+      <div class="list">
+        <article class="item">
+          <h3>Apps</h3>
+          <p>Preview works on your wall (AR), browse catalogues, and join live sessions.</p>
+          <p>
+            <a class="btn primary" href="#" rel="noopener">App Store (iOS)</a>
+            <a class="btn primary" href="#" rel="noopener">Google Play (Android)</a>
+          </p>
+        </article>
+
+        <article class="item">
+          <h3>Digital Downloads (Non-Blockchain)</h3>
+          <p>High-resolution images or video loops for personal display. Each file is issued with a <strong>Digital Certificate of Authenticity (D-COA)</strong> and file hash for verification.</p>
+        </article>
+
+        <article class="item">
+          <h3>Blockchain Editions (NFTs)</h3>
+          <p>One-off or limited-edition <strong>on-chain</strong> artworks (ERC-721 / ERC-1155). Ownership and provenance are recorded on Ethereum. EIP-2981 signals royalty terms to marketplaces. After Ethereum’s PoS transition, energy usage fell dramatically vs PoW.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXHIBITIONS -->
+  <section id="exhibitions">
+    <div class="wrap">
+      <h1>Exhibitions (selected)</h1>
+      <div class="list">
+        <article class="item"><h3>Burnt into Memory</h3><p>Hawkesbury Regional Gallery • 7 Jun – 17 Aug 2025 (group)</p></article>
+        <article class="item"><h3>Getting Pinked</h3><p>Lost Bear Gallery • 4 Dec 2021 – 16 Jan 2022 (solo)</p></article>
+        <article class="item"><h3>Fly like a Bird</h3><p>Nanda/Hobbs • 2021</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <h1>About</h1>
+      <div class="list">
+        <article class="item">
+          <p><strong>Jody Graham</strong> is a Sydney-based multidisciplinary artist whose practice spans drawing, mixed media, sculpture, installation and performance. Working with unconventional tools and found materials, she extends drawing to explore the broken and discarded, regeneration after fire, and Australian birdlife.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <h1>Contact</h1>
+      <div class="list">
+        <article class="item">
+          <p><strong>Studio:</strong> <a href="mailto:studio@jodygraham.art">studio@jodygraham.art</a></p>
+          <p><strong>Galleries:</strong> Nanda/Hobbs • Lost Bear • Linton & Kay</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="y"></span> Jody Graham.</div>
+</footer>
+
+<!-- Artwork Lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true" aria-modal="true" role="dialog">
+  <div class="lb-dialog" role="document">
+    <div class="lb-media"><img id="lbImg" alt=""></div>
+    <div class="lb-caption">
+      <div>
+        <div class="lb-title" id="lbTitle">Title</div>
+        <div class="footnote" id="lbNote"></div>
+      </div>
+      <div class="lb-links" style="display:flex;gap:10px;flex-wrap:wrap">
+        <a id="lbLink" class="btn" rel="noopener" target="_blank">View on jodygraham.art</a>
+        <button class="btn" id="lbClose">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Lightbox (email-based checkout) -->
+<div class="lightbox" id="cartbox" aria-hidden="true" aria-modal="true" role="dialog">
+  <div class="lb-dialog" role="document">
+    <div class="lb-caption" style="padding:16px 16px">
+      <div>
+        <div class="lb-title" id="cartTitle">Checkout</div>
+        <div class="footnote">This sends an email to confirm your place and deliver access links.</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn" id="cartClose">Close</button>
+      </div>
+    </div>
+    <div style="padding:0 16px 16px">
+      <div class="list">
+        <div class="item">
+          <form id="cartForm" class="list">
+            <div style="display:grid;gap:12px;grid-template-columns:1fr 1fr">
+              <label>Full name<br><input required name="name" style="width:100%;padding:10px;border:1px solid var(--stroke);border-radius:10px"/></label>
+              <label>Email<br><input required type="email" name="email" style="width:100%;padding:10px;border:1px solid var(--stroke);border-radius:10px"/></label>
+            </div>
+            <label>Notes (optional)<br><textarea name="notes" rows="3" style="width:100%;padding:10px;border:1px solid var(--stroke);border-radius:10px"></textarea></label>
+            <div><button class="btn primary" type="submit">Confirm by Email</button></div>
+            <div class="footnote">No card is charged here. We’ll reply with a secure payment link or invoice, depending on the plan.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Three.js (CDN) for virtual gallery -->
+<script type="module">
+/* ========= Simple router (hash-based) ========= */
+const sections = [...document.querySelectorAll('main > section')];
+function show(route){
+  sections.forEach(s=> s.classList.toggle('active', s.id === route));
+  document.querySelectorAll('nav a').forEach(a=> a.toggleAttribute('aria-current', a.dataset.route===route));
+  history.replaceState(null, '', '#'+route);
+}
+function startRoute(){
+  const r = location.hash.replace('#','') || 'home';
+  if (!document.getElementById(r)) return show('home');
+  show(r);
+}
+document.addEventListener('click', (e)=>{
+  const to = e.target.closest('[data-route]'); if(!to) return;
+  e.preventDefault(); show(to.dataset.route);
+});
+startRoute();
+
+/* Year + Mobile menu */
+document.getElementById('y').textContent = new Date().getFullYear();
+const toggle = document.querySelector('.menu-toggle');
+const menu = document.getElementById('mainmenu');
+if (toggle && menu) toggle.addEventListener('click', ()=> {
+  const open = menu.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+window.addEventListener('keydown',(e)=>{if(e.key==='Tab') document.documentElement.classList.add('user-is-tabbing')},{once:true});
+window.addEventListener('mousedown',()=>document.documentElement.classList.remove('user-is-tabbing'));
+
+/* ========= Artworks dataset (edit me) ========= */
+const ARTWORKS = [
+  { id:"gp-lbg-2021", title:"Getting Pinked — Series", year:2021, medium:"Mixed media on paper", size_cm:"",
+    collection:"Getting Pinked", status:"available", gallery:"Lost Bear Gallery",
+    rep_url:"https://lostbeargallery.com.au/", page:"https://jodygraham.art/work/getting-pinked-collection/",
+    image:"https://jodygraham.art/wp-content/uploads/2021/10/Getting-Pinked-hero.jpg" },
+  { id:"burnt-series", title:"Burnt — Series", year:2020, medium:"Charred branches, found matter", size_cm:"",
+    collection:"Burnt", status:"enquire", gallery:"Nanda/Hobbs",
+    rep_url:"https://nandahobbs.com/", page:"https://jodygraham.art/work/burnt/",
+    image:"https://jodygraham.art/wp-content/uploads/2020/07/Burnt-hero.jpg" },
+  { id:"fly-bird-2021", title:"Fly like a Bird — Series", year:2021, medium:"Charcoal from bushfires (birds)", size_cm:"",
+    collection:"Fly like a Bird", status:"available", gallery:"Nanda/Hobbs",
+    rep_url:"https://nandahobbs.com/", page:"https://jodygraham.art/work/fly-like-a-bird/",
+    image:"https://jodygraham.art/wp-content/uploads/2021/09/Fly-like-a-Bird-hero.jpg" },
+  { id:"facade-2025", title:"Behind the Facade — Series", year:2025, medium:"Charcoal and mixed media", size_cm:"",
+    collection:"Behind the Facade", status:"catalogued", gallery:"Lost Bear Gallery",
+    rep_url:"https://lostbeargallery.com.au/", page:"https://jodygraham.art/work/behind-the-facade/",
+    image:"https://jodygraham.art/wp-content/uploads/2025/04/Behind-the-Facade-hero.jpg" },
+  { id:"drawn-memory-2025", title:"Drawn from Memory — Selection", year:2025, medium:"Graphite, charcoal", size_cm:"",
+    collection:"Drawn from Memory", status:"hidden", gallery:"Lost Bear Gallery",
+    rep_url:"https://lostbeargallery.com.au/", page:"https://jodygraham.art/work/drawn-from-memory/",
+    image:"https://jodygraham.art/wp-content/uploads/2025/07/Drawn-from-Memory-hero.jpg" }
+];
+
+/* ========= Admin visibility (local) ========= */
+const ADMIN_KEY = 'jg_admin';
+const HIDDEN_MAP_KEY = 'jg_hidden_map';
+let isAdmin = (new URLSearchParams(location.search).get('admin') === '1') || localStorage.getItem(ADMIN_KEY)==='1';
+function setAdmin(on){
+  isAdmin = !!on; document.body.classList.toggle('admin', isAdmin);
+  localStorage.setItem(ADMIN_KEY, isAdmin ? '1' : '0');
+  renderAll();
+}
+window.addEventListener('keydown', e=>{ if(e.key.toLowerCase()==='a') setAdmin(!isAdmin); });
+
+let hiddenMap = {}; try{ hiddenMap = JSON.parse(localStorage.getItem(HIDDEN_MAP_KEY)||'{}'); }catch(_){}
+function isVisible(a){
+  const override = hiddenMap[a.id];
+  if (override==='show') return true;
+  if (override==='hide') return false;
+  if (a.status==='hidden') return !!isAdmin;
+  return a.status!=='sold';
+}
+function toggleVisibility(id){
+  hiddenMap[id] = (hiddenMap[id]==='hide') ? 'show' : 'hide';
+  localStorage.setItem(HIDDEN_MAP_KEY, JSON.stringify(hiddenMap));
+  renderAll();
+}
+
+/* ========= Lightbox ========= */
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbTitle = document.getElementById('lbTitle');
+const lbNote = document.getElementById('lbNote');
+const lbLink = document.getElementById('lbLink');
+document.getElementById('lbClose').addEventListener('click', ()=> closeLB());
+lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLB(); });
+window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) closeLB(); });
+function openLB(a){
+  lbImg.src = a.image || ''; lbImg.alt = a.title || '';
+  lbTitle.textContent = a.title || '';
+  lbNote.textContent = [a.collection,a.medium,a.size_cm,a.year].filter(Boolean).join(' • ');
+  lbLink.href = a.page || '#';
+  lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+}
+function closeLB(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; lbImg.removeAttribute('src'); }
+
+/* ========= Gallery render ========= */
+const galleryGrid = document.getElementById('galleryGrid');
+function galleryCard(a){
+  const adminControls = isAdmin ? `<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn warn" data-toggle="${a.id}">Toggle Hide/Show</button>
+  </div>` : '';
+  return `<article class="card" data-collection="${a.collection}" data-id="${a.id}">
+    <figure><img loading="lazy" src="${a.image}" alt="${a.title}"></figure>
+    <div class="meta">
+      <h3>${a.title}</h3>
+      <p>${[a.medium,a.size_cm,a.year].filter(Boolean).join(' • ')}</p>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn" href="${a.page}" target="_blank" rel="noopener">View on jodygraham.art</a>
+        <button class="btn primary" data-open="${a.id}">Details</button>
+      </div>
+      ${adminControls}
+    </div>
+  </article>`;
+}
+function renderGallery(filter='all'){
+  const items = ARTWORKS.filter(a=> isVisible(a) && (filter==='all' || a.collection===filter));
+  galleryGrid.innerHTML = items.map(galleryCard).join('') || '<div class="item">No matches.</div>';
+}
+document.querySelectorAll('#gallery .pill').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#gallery .pill').forEach(b=>b.setAttribute('aria-pressed','false'));
+    btn.setAttribute('aria-pressed','true'); renderGallery(btn.dataset.filter);
+  });
+});
+
+/* ===== Sales render ===== */
+const salesGrid = document.getElementById('salesGrid');
+const sfGallery = document.getElementById('sfGallery');
+let salesFilter='all';
+function salesCard(a){
+  return `<article class="card" data-status="${a.status}" data-gallery="${a.gallery||''}">
+    <figure><img loading="lazy" src="${a.image}" alt="${a.title}"></figure>
+    <div class="meta">
+      <h3>${a.title}</h3>
+      <p>${[a.collection,a.medium,a.year].filter(Boolean).join(' • ')}</p>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn" href="${a.page}" target="_blank" rel="noopener">View on jodygraham.art</a>
+        <a class="btn primary" href="${a.rep_url||'#'}" target="_blank" rel="noopener">Enquire — ${a.gallery||'Gallery'}</a>
+      </div>
+    </div>
+  </article>`;
+}
+function renderSales(){
+  const g = sfGallery.value;
+  const items = ARTWORKS.filter(a=>{
+    if(!isVisible(a)) return false;
+    if(salesFilter!=='all' && a.status!==salesFilter) return false;
+    if(g && a.gallery!==g) return false;
+    return ['available','enquire','catalogued'].includes(a.status);
+  });
+  salesGrid.innerHTML = items.map(salesCard).join('') || '<div class="item">No matches currently.</div>';
+}
+document.querySelectorAll('#sales .pill[data-sf]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#sales .pill[data-sf]').forEach(b=>b.setAttribute('aria-pressed','false'));
+    btn.setAttribute('aria-pressed','true'); salesFilter = btn.dataset.sf; renderSales();
+  });
+});
+sfGallery?.addEventListener('input', renderSales);
+
+/* ========= Pricing & Classes (email-based checkout) ========= */
+const PLANS = [
+  // Live passes & packs
+  {id:'single-class', kind:'pass', name:'Single Live Class (Online)', price:'A$60', period:'once',
+   bullets:['90 minutes live on Zoom','Replay for 7 days (subscribers unlimited)','Class notes PDF'],
+   email_subject:'Single Live Class — Booking',
+   email_to:'studio@jodygraham.art'},
+  {id:'five-pack', kind:'pass', name:'5-Class Pack (Online)', price:'A$250', period:'valid 3 months',
+   bullets:['5x live classes','Transferable to a friend','Replays included'],
+   email_subject:'5-Class Pack — Booking',
+   email_to:'studio@jodygraham.art'},
+  {id:'ten-pack', kind:'pass', name:'10-Class Pack (Online)', price:'A$460', period:'valid 6 months',
+   bullets:['10x live classes','Priority Q&A','Replays included'],
+   email_subject:'10-Class Pack — Booking',
+   email_to:'studio@jodygraham.art'},
+
+  // 30-day guided course
+  {id:'intensive-30', kind:'course', name:'30-Day Intensive — Drawing Practice', price:'A$349', period:'one-off',
+   bullets:['Daily prompts + demos','Weekly live critique (4x)','Private community thread','Certificate of completion'],
+   email_subject:'30-Day Intensive — Enrolment',
+   email_to:'studio@jodygraham.art'},
+
+  // Subscriptions
+  {id:'foundational', kind:'sub', name:'Foundational (Library Access)', price:'A$29/mo', period:'monthly',
+   bullets:['Fundamentals video library (always on)','Technique primers & tools','Member-only posts'],
+   email_subject:'Foundational Subscription — Sign up',
+   email_to:'studio@jodygraham.art'},
+  {id:'plus', kind:'sub', name:'Plus (Library + Weekly Extras)', price:'A$59/mo', period:'monthly',
+   bullets:['Everything in Foundational','New extras weekly; older rotate every ~2 years','Unlimited replays'],
+   email_subject:'Plus Subscription — Sign up',
+   email_to:'studio@jodygraham.art'},
+  {id:'platinum', kind:'sub', name:'Platinum (Live + Library)', price:'A$119/mo', period:'monthly',
+   bullets:['Everything in Plus','Live online classes included each month','Priority critique & feedback'],
+   email_subject:'Platinum Subscription — Sign up',
+   email_to:'studio@jodygraham.art'},
+
+  // In-person host day (your earlier pricing)
+  {id:'day-rate', kind:'inperson', name:'In-Person Workshop Day (Host Booking)', price:'A$500–A$800 / day', period:'per day (group)',
+   bullets:['Typical group size ~10 people','Tailored program & materials list','Travel by arrangement'],
+   email_subject:'In-Person Day — Enquiry',
+   email_to:'studio@jodygraham.art'}
+];
+
+function makeTier(p){
+  return `<div class="tier" data-plan="${p.id}">
+    <h3>${p.name}</h3>
+    <div class="price">${p.price} <span class="footnote">• ${p.period}</span></div>
+    <ul>${p.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+    <div class="cta">
+      <button class="btn primary" data-buy="${p.id}">Select</button>
+      ${p.kind==='sub'?'<span class="footnote">Cancel anytime</span>':''}
+    </div>
+  </div>`;
+}
+const priceGrid = document.getElementById('priceGrid');
+priceGrid.innerHTML = PLANS.map(makeTier).join('');
+
+let pendingPlan = null;
+const cartbox = document.getElementById('cartbox');
+const cartTitle = document.getElementById('cartTitle');
+const cartForm = document.getElementById('cartForm');
+function openCart(plan){
+  pendingPlan = plan;
+  cartTitle.textContent = `Checkout — ${plan.name}`;
+  cartbox.classList.add('open'); cartbox.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+}
+function closeCart(){ cartbox.classList.remove('open'); cartbox.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+document.getElementById('cartClose').addEventListener('click', closeCart);
+cartbox.addEventListener('click', (e)=>{ if(e.target===cartbox) closeCart(); });
+
+document.addEventListener('click', (e)=>{
+  const buy = e.target?.getAttribute?.('data-buy');
+  const openId = e.target?.getAttribute?.('data-open');
+  const togId  = e.target?.getAttribute?.('data-toggle');
+  if(buy){
+    const plan = PLANS.find(x=>x.id===buy); if(plan) openCart(plan);
+  }
+  if(openId){
+    const a = ARTWORKS.find(x=>x.id===openId); if(a) openLB(a);
+  }
+  if(togId){ toggleVisibility(togId); }
+});
+
+cartForm.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const fd = new FormData(cartForm);
+  const name = fd.get('name'); const email = fd.get('email'); const notes = (fd.get('notes')||'').trim();
+  if(!pendingPlan) return;
+  const subject = encodeURIComponent(pendingPlan.email_subject);
+  const body = encodeURIComponent(
+`Plan: ${pendingPlan.name} (${pendingPlan.price}, ${pendingPlan.period})
+Name: ${name}
+Email: ${email}
+Notes: ${notes || '-'}
+— 
+Please confirm my booking and send access/payment details.`
+  );
+  location.href = `mailto:${pendingPlan.email_to}?subject=${subject}&body=${body}`;
+  closeCart();
+});
+
+/* ========= Virtual gallery (Three.js) ========= */
+import * as THREE from 'https://unpkg.com/three@0.161/build/three.module.js';
+import { PointerLockControls } from 'https://unpkg.com/three@0.161/examples/jsm/controls/PointerLockControls.js';
+
+const vgCanvas = document.getElementById('vg');
+const renderer = new THREE.WebGLRenderer({canvas:vgCanvas, antialias:true});
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x000000);
+const camera = new THREE.PerspectiveCamera(65, 16/9, .1, 200); camera.position.set(0,1.6,6);
+
+// Room
+const wallMat = new THREE.MeshStandardMaterial({color:0x0f141e, roughness:.85, metalness:.06});
+const floorMat = new THREE.MeshStandardMaterial({color:0x222833, roughness:.25, metalness:.5});
+const box = new THREE.Mesh(new THREE.BoxGeometry(18,4,18), wallMat); box.material.side = THREE.BackSide;
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(18,18), floorMat); floor.rotation.x=-Math.PI/2; floor.position.y=0;
+scene.add(box,floor);
+scene.add(new THREE.AmbientLight(0xffffff,.35));
+function addSpot(x,z){ const sp = new THREE.SpotLight(0xffffff,1.2,12,Math.PI/6,.4,1); sp.position.set(x,3.5,z); sp.target.position.set(x,1.6,z-0.1); scene.add(sp, sp.target); }
+addSpot(-5,-7); addSpot(0,-7); addSpot(5,-7); addSpot(-7,0);
+
+// First-person controls
+const controls = new PointerLockControls(camera, vgCanvas);
+vgCanvas.addEventListener('click', ()=> controls.lock());
+let vel = new THREE.Vector3(), dir = new THREE.Vector3(), keys={};
+document.addEventListener('keydown', e=>{ keys[e.code]=true; });
+document.addEventListener('keyup',   e=>{ keys[e.code]=false; });
+function step(dt){
+  dir.set(0,0,0);
+  if(keys['KeyW']||keys['ArrowUp']) dir.z -= 1;
+  if(keys['KeyS']||keys['ArrowDown']) dir.z += 1;
+  if(keys['KeyA']||keys['ArrowLeft']) dir.x -= 1;
+  if(keys['KeyD']||keys['ArrowRight']) dir.x += 1;
+  dir.normalize();
+  const speed = 2.4;
+  if(controls.isLocked){
+    const forward = new THREE.Vector3(); controls.getDirection(forward);
+    const right = new THREE.Vector3().crossVectors(forward,new THREE.Vector3(0,1,0)).multiplyScalar(-1);
+    vel.addScaledVector(forward.setY(0).normalize(), dir.z*speed*dt);
+    vel.addScaledVector(right.setY(0).normalize(),   dir.x*speed*dt);
+    vel.multiplyScalar(0.86);
+    camera.position.add(vel.clone().multiplyScalar(dt));
+    camera.position.x = THREE.MathUtils.clamp(camera.position.x,-6.8,6.8);
+    camera.position.z = THREE.MathUtils.clamp(camera.position.z,-7.8,7.8);
+    camera.position.y = 1.6;
+  }
+}
+
+// Art planes
+const loader = new THREE.TextureLoader();
+function framePlane({img,x,y,z,ry=0,w=2.1,h=1.5,meta}){
+  const tex = loader.load(img); tex.colorSpace = THREE.SRGBColorSpace;
+  const art = new THREE.Mesh(new THREE.PlaneGeometry(w,h), new THREE.MeshBasicMaterial({map:tex}));
+  art.position.set(x,y,z); art.rotation.y = ry; art.userData = meta;
+  const frame = new THREE.Mesh(new THREE.PlaneGeometry(w+.08,h+.08), new THREE.MeshStandardMaterial({color:0xc0c5d0, metalness:.9, roughness:.2}));
+  frame.position.copy(art.position); frame.rotation.copy(art.rotation); frame.position.z += 0.001;
+  scene.add(frame, art); return art;
+}
+ARTWORKS.filter(a=>isVisible(a)).slice(0,12).forEach((a,i)=>{
+  const col = i%3, row = Math.floor(i/3);
+  const x = -5 + col*5; const z = -7 + (row*3.5);
+  framePlane({img:a.image,x,y:1.6,z,ry:0,meta:a});
+});
+
+// Raycast to open details
+const ray = new THREE.Raycaster();
+function pick(){
+  ray.setFromCamera(new THREE.Vector2(0,0), camera);
+  const hit = ray.intersectObjects(scene.children).find(o=>o.object.userData && o.object.userData.page);
+  if(hit){ openLB(hit.object.userData); }
+}
+vgCanvas.addEventListener('click', ()=>{ if(controls.isLocked) pick(); });
+
+// Fit + loop
+function fit(){
+  const r = vgCanvas.getBoundingClientRect(); 
+  const width = r.width, height = Math.max(200, r.height);
+  renderer.setSize(width, height, false);
+  camera.aspect = width/height; camera.updateProjectionMatrix();
+}
+new ResizeObserver(fit).observe(vgCanvas); fit();
+let last = performance.now();
+function loop(now){
+  const dt = Math.min(0.033,(now-last)/1000); last = now;
+  step(dt); renderer.render(scene,camera); requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+/* ========= Initial render ========= */
+function renderAll(){ renderGallery('all'); renderSales(); }
+renderAll();
+</script>
+
+</body>
+</html>
