@@ -1,47 +1,30 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en-AU">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, viewport-fit=cover" />
-<meta name="color-scheme" content="light dark" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<title>Artist Portfolio + Classes</title>
-
-<!-- HOW TO EDIT (short)
-1) Brand: change .brand text + <title>.
-2) Prices: edit data-price-* on pricing buttons + visible £/$. (AUD in examples)
-3) Payments: set href on .pay-btn links to your Stripe/PayPal checkout pages.
-4) Gating: the “Sign in as …” demo sets a fake tier in localStorage to show/hide content.
-   Tiers: "guest" | "member" | "platinum" (member = subscription; platinum = +live).
-5) Content: replace placeholder text, images, and mailto links.
-6) Works: duplicate .card in #works .grid, update data-collection/img/alt/title.
--->
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Jody Graham — Works, Virtual Gallery & Learning</title>
+<meta name="description" content="Sydney-based multidisciplinary artist. Drawing-led practice across mixed media, installation and performance. Explore catalogued works, enter a virtual gallery, and learn with live classes and courses." />
+<link rel="canonical" href="https://jodygraham.art/" />
 
 <style>
   :root{
-    --bg:#ffffff; --ink:#0b0d12; --muted:#5e6676; --stroke:rgba(0,0,0,.1);
-    --pill:#f1f3f8; --surface:#fafbff; --focus:#0a84ff; --ok:#32D74B; --warn:#FF9F0A;
-    --maxw:1080px; --r:14px; --rsm:10px;
-    --s-1:clamp(.82rem,.78rem + .2vw,.92rem);
-    --s0:clamp(.96rem,.9rem + .3vw,1rem);
-    --s1:clamp(1.12rem,1rem + .5vw,1.25rem);
-    --s2:clamp(1.4rem,1.1rem + 1.1vw,1.8rem);
-    --s3:clamp(2.1rem,1.6rem + 2.4vw,3rem);
+    --bg:#fff; --ink:#0b0d12; --muted:#606a7a; --stroke:rgba(0,0,0,.12);
+    --pill:#f2f4f8; --surface:#fbfcff; --ok:#32d74b; --warn:#ff9f0a;
+    --maxw:1120px; --r:16px; --rsm:12px;
+    --s-1:.92rem; --s0:1rem; --s1:1.22rem; --s2:1.6rem; --s3:2.4rem;
   }
   @media (prefers-color-scheme: dark){
-    :root{
-      --bg:#0b0d12; --ink:#eef3ff; --muted:#aab3c7; --stroke:rgba(255,255,255,.16);
-      --pill:#181c24; --surface:#0f121a;
-    }
+    :root{ --bg:#0b0d12; --ink:#eef3ff; --muted:#aab3c7; --stroke:rgba(255,255,255,.16); --pill:#171b23; --surface:#0f121a; }
   }
   *{box-sizing:border-box} html,body{margin:0}
   body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial; background:var(--bg); color:var(--ink); line-height:1.55}
-  a{color:inherit;text-decoration:none} img{display:block;max-width:100%;height:auto}
-  .wrap{max-width:var(--maxw); margin-inline:auto; padding:0 20px}
-  header{position:sticky;top:0;z-index:40;backdrop-filter:blur(8px); background:color-mix(in oklab,var(--bg) 88%,transparent); border-bottom:1px solid var(--stroke)}
+  img{display:block;max-width:100%;height:auto}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding:0 20px}
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(8px); background:color-mix(in oklab,var(--bg) 88%,transparent); border-bottom:1px solid var(--stroke)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brand{font-weight:700;font-size:var(--s1)}
+  .brand{font-weight:800;font-size:var(--s1)}
   .menu{display:flex;gap:16px;align-items:center}
   .menu a{padding:8px 10px;border-radius:8px}
   .menu-toggle{display:none;border:1px solid var(--stroke);border-radius:10px;padding:8px 10px;background:var(--pill)}
@@ -51,24 +34,14 @@
     .menu-toggle{display:inline-block}
   }
   section{padding:32px 0}
-  h1{font-size:var(--s3);line-height:1.1;margin:0 0 8px}
+  h1{font-size:var(--s3);line-height:1.08;margin:0 0 8px}
   h2{font-size:var(--s2);line-height:1.12;margin:0 0 8px}
   .lede{color:var(--muted);margin:0 0 18px}
-
-  .hero{padding:48px 0 24px;border-bottom:1px solid var(--stroke);
-        background:radial-gradient(1200px 600px at 80% -10%,color-mix(in oklab,var(--surface) 70%,transparent) 0,transparent 60%),
-                   radial-gradient(900px 500px at -10% 20%,color-mix(in oklab,var(--surface) 90%,transparent) 0,transparent 55%)}
-  .cta{display:flex;gap:10px;flex-wrap:wrap}
   .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--stroke);background:var(--pill);font-weight:600;font-size:var(--s0)}
   .btn.primary{background:var(--ink);color:var(--bg);border-color:transparent}
   .btn.ok{background:var(--ok);color:#000;border-color:transparent}
   .btn.warn{background:var(--warn);color:#000;border-color:transparent}
-  .btn:active{transform:translateY(0)} .btn:hover{transform:translateY(-1px)}
-
-  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 18px}
-  .pill{border:1px solid var(--stroke);background:var(--pill);padding:8px 12px;border-radius:999px;font-size:var(--s0)}
-  .pill[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-
+  .btn:hover{transform:translateY(-1px)}
   .grid{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
   @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:580px){.grid{grid-template-columns:1fr}}
@@ -76,470 +49,378 @@
   .card figure{margin:0}
   .card img{aspect-ratio:4/3;object-fit:cover;background:var(--surface)}
   .card .meta{padding:12px 12px 14px}
-  .card h3{margin:0 0 6px;font-size:var(--s1)}
-  .card p{margin:0;color:var(--muted);font-size:var(--s0)}
-
-  .lightbox{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.6);backdrop-filter:blur(2px);z-index:100}
-  .lightbox.open{display:grid}
-  .lb-dialog{width:min(92vw,980px);background:var(--bg);color:var(--ink);border-radius:var(--r);overflow:hidden;border:1px solid var(--stroke)}
-  .lb-media{background:#000}
-  .lb-media img{width:100%;max-height:78vh;object-fit:contain}
-  .lb-caption{padding:12px 14px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-  .lb-title{font-weight:700}
-  .lb-close{border:1px solid var(--stroke);background:var(--pill);border-radius:10px;padding:8px 10px}
-
+  .card h3{margin:0 0 6px;font-size:var(--s1)} .card p{margin:0;color:var(--muted);font-size:var(--s0)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+  .pill{border:1px solid var(--stroke);background:var(--pill);padding:8px 12px;border-radius:999px;font-size:var(--s0)}
+  .pill[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
   .list{display:grid;gap:12px}
   .item{border:1px solid var(--stroke);border-radius:var(--rsm);padding:14px;background:var(--bg)}
-  .item h3{margin:0 0 6px;font-size:var(--s1)}
-  .item p{margin:0;color:var(--muted)}
-  .meta-row{display:flex;gap:10px;flex-wrap:wrap;font-size:var(--s-1);color:var(--muted);margin-top:8px}
-
-  /* Pricing */
+  .item h3{margin:0 0 6px;font-size:var(--s1)} .item p{margin:0;color:var(--muted)}
   .pricing{display:grid;gap:14px;grid-template-columns:repeat(4,1fr)}
   @media (max-width:980px){.pricing{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:580px){.pricing{grid-template-columns:1fr}}
   .tier{border:1px solid var(--stroke);border-radius:16px;padding:16px;background:var(--bg)}
-  .tier h3{margin:0 0 4px}
   .price{font-size:var(--s2);font-weight:800;margin:6px 0}
-  .feat{margin:10px 0 0;padding:0;list-style:none}
-  .feat li{display:flex;gap:8px;margin:6px 0}
-  .tick{font-weight:700}
-  .x{opacity:.5}
-  .footnote{font-size:var(--s-1);color:var(--muted);margin-top:8px}
-
-  .badge{display:inline-flex;gap:6px;align-items:center;background:var(--pill);border:1px solid var(--stroke);border-radius:999px;padding:4px 10px;font-size:var(--s-1)}
-
-  .cols{columns:2 360px;column-gap:28px}
-  .cols p{break-inside:avoid;margin:0 0 10px}
-
-  footer{border-top:1px solid var(--stroke);padding:18px 0;color:var(--muted);font-size:var(--s-1)}
-  .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+  .footnote{font-size:.9rem;color:var(--muted)}
+  .lightbox{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.6);backdrop-filter:blur(2px);z-index:100}
+  .lightbox.open{display:grid}
+  .lb-dialog{width:min(92vw,1040px);background:var(--bg);color:var(--ink);border-radius:16px;overflow:hidden;border:1px solid var(--stroke)}
+  .lb-media{background:#000}
+  .lb-media img{width:100%;max-height:78vh;object-fit:contain}
+  .lb-caption{padding:12px 14px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .lb-links{display:flex;gap:10px;flex-wrap:wrap}
+  footer{border-top:1px solid var(--stroke);padding:18px 0;color:var(--muted);font-size:.92rem}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap nav" role="navigation" aria-label="Primary">
-    <a class="brand" href="#">Artist Name</a>
+    <a class="brand" href="#">Jody Graham</a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="mainmenu">Menu</button>
     <nav id="mainmenu" class="menu" aria-label="Main menu">
-      <a href="#works">Works</a>
-      <a href="#teach">Classes</a>
-      <a href="#courses">30-Day Courses</a>
-      <a href="#library">Subscription</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#virtual">Virtual Gallery</a>
+      <a href="#teaching">Learn</a>
       <a href="#pricing">Pricing</a>
-      <a href="#members">Members</a>
+      <a href="#about">About</a>
+      <a href="#press">Press</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
 
-<section class="hero">
-  <div class="wrap">
-    <h1>Drawing-led practice & teaching</h1>
-    <p class="lede">Premium workshops, structured online courses, and a members library (Foundations + rotating Extras).</p>
-    <div class="cta">
-      <a class="btn primary" href="#pricing">See pricing</a>
-      <a class="btn" href="#teach">Upcoming classes</a>
-    </div>
-  </div>
+<section class="wrap" style="padding:40px 0 12px">
+  <h1>Drawing-led practice, performance & teaching</h1>
+  <p class="lede">Explore catalogued works (series like <em>Getting Pinked</em>, <em>Burnt</em>, <em>Fly like a Bird</em>, <em>Behind the Facade</em>), a virtual gallery, and premium online learning.</p>
 </section>
 
-<!-- WORKS -->
-<section id="works">
+<!-- ====== GALLERY (catalog) ====== -->
+<section id="gallery">
   <div class="wrap">
-    <h2>Works</h2>
-    <p class="lede">Tap a work to open the lightbox.</p>
-    <div class="filters" role="toolbar">
+    <h2>Gallery</h2>
+    <div class="filters" role="toolbar" aria-label="Filter">
       <button class="pill" data-filter="all" aria-pressed="true">All</button>
-      <button class="pill" data-filter="Drawings" aria-pressed="false">Drawings</button>
-      <button class="pill" data-filter="Installations" aria-pressed="false">Installations</button>
-      <button class="pill" data-filter="Performances" aria-pressed="false">Performances</button>
+      <button class="pill" data-filter="Getting Pinked">Getting Pinked</button>
+      <button class="pill" data-filter="Burnt">Burnt</button>
+      <button class="pill" data-filter="Fly like a Bird">Fly like a Bird</button>
+      <button class="pill" data-filter="Behind the Facade">Behind the Facade</button>
     </div>
-    <div class="grid" id="workGrid">
-      <!-- Duplicate/replace cards -->
-      <article class="card" data-collection="Drawings">
-        <figure>
-          <img loading="lazy" src="data:image/svg+xml;utf8,
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'>
-              <rect width='100%' height='100%' fill='%23cfd6e6'/>
-              <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='48' fill='%235a6479'>Placeholder — Drawing</text>
-            </svg>" alt="Charcoal drawing."/>
-          <figcaption class="visually-hidden">Charcoal drawing, 76 × 56 cm.</figcaption>
-        </figure>
-        <div class="meta">
-          <h3>Behind the Facade (Study)</h3>
-          <p>Charcoal, graphite, found marks.</p>
-        </div>
-      </article>
-      <article class="card" data-collection="Installations">
-        <figure>
-          <img loading="lazy" src="data:image/svg+xml;utf8,
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'>
-              <rect width='100%' height='100%' fill='%23e8eaf1'/>
-              <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='48' fill='%23606a80'>Placeholder — Installation</text>
-            </svg>" alt="Installation with salvaged materials."/>
-          <figcaption class="visually-hidden">Suspended found objects and projections.</figcaption>
-        </figure>
-        <div class="meta">
-          <h3>Urban Beauty (Fragment)</h3>
-          <p>Room-scale intervention using salvaged materials.</p>
-        </div>
-      </article>
-      <article class="card" data-collection="Performances">
-        <figure>
-          <img loading="lazy" src="data:image/svg+xml;utf8,
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'>
-              <rect width='100%' height='100%' fill='%23dbe0ee'/>
-              <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='48' fill='%23556078'>Placeholder — Performance</text>
-            </svg>" alt="Live sound–drawing performance."/>
-          <figcaption class="visually-hidden">Live sound–drawing with double bass.</figcaption>
-        </figure>
-        <div class="meta">
-          <h3>Sound–Drawing</h3>
-          <p>Translating sound into marks, live.</p>
-        </div>
-      </article>
+    <div id="galleryGrid" class="grid"></div>
+  </div>
+</section>
+
+<!-- ====== VIRTUAL GALLERY (WebGL) ====== -->
+<section id="virtual">
+  <div class="wrap">
+    <h2>Virtual Gallery</h2>
+    <p class="lede">Walk the room and view selected pieces at scale. Click a work to open its details.</p>
+    <div style="border:1px solid var(--stroke);border-radius:16px;overflow:hidden">
+      <canvas id="vg" style="display:block;width:100%;aspect-ratio:16/9;background:#111"></canvas>
     </div>
   </div>
 </section>
 
-<!-- CLASSES (ONE-OFFS) -->
-<section id="teach">
+<!-- ====== TEACHING HUB ====== -->
+<section id="teaching">
   <div class="wrap">
-    <h2>One-off Online Classes</h2>
-    <p class="lede">Great entry point. Pay once, join live or watch the recording.</p>
-    <div class="list" role="list">
-      <article class="item" role="listitem">
-        <h3>Expressive Charcoal — 90 min</h3>
-        <p>Gesture, texture, and unconventional tools.</p>
-        <div class="meta-row"><span class="badge">AUD $25–40</span><span>Recording included (48h)</span></div>
-        <div class="meta-row">
-          <a class="btn pay-btn" href="#" data-product="oneoff-charcoal">Buy class</a>
-          <button class="btn" data-join="oneoff-charcoal">Join / Watch</button>
-          <span class="footnote">Platinum: included</span>
-        </div>
-      </article>
-      <article class="item" role="listitem">
-        <h3>Urban Sketching — 90 min</h3>
-        <p>Compose fast with line, tone, and found marks.</p>
-        <div class="meta-row"><span class="badge">AUD $25–40</span><span>Recording included (48h)</span></div>
-        <div class="meta-row">
-          <a class="btn pay-btn" href="#" data-product="oneoff-urban">Buy class</a>
-          <button class="btn" data-join="oneoff-urban">Join / Watch</button>
-          <span class="footnote">Platinum: included</span>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- 30-DAY COURSES -->
-<section id="courses">
-  <div class="wrap">
-    <h2>Structured 30-Day Courses</h2>
-    <p class="lede">Daily/weekly lessons, assignments, and check-ins. Keep momentum.</p>
-    <div class="list" role="list">
-      <article class="item" role="listitem">
-        <h3>Foundations in Drawing — 30 Days</h3>
-        <p>Proportion, value, edges, composition, and mark-making. With weekly Q&A.</p>
-        <div class="meta-row"><span class="badge">AUD $120–200</span><span>Certificate of completion</span></div>
-        <div class="meta-row">
-          <a class="btn pay-btn" href="#" data-product="course-foundations">Enrol</a>
-          <button class="btn" data-join="course-foundations">Enter course</button>
-          <span class="footnote">Platinum: course discount optional</span>
-        </div>
-      </article>
-      <article class="item" role="listitem">
-        <h3>Charcoal Mastery — 30 Days</h3>
-        <p>Advanced texture, scale, layered drawing with found tools.</p>
-        <div class="meta-row"><span class="badge">AUD $120–200</span><span>Community feedback</span></div>
-        <div class="meta-row">
-          <a class="btn pay-btn" href="#" data-product="course-charcoal">Enrol</a>
-          <button class="btn" data-join="course-charcoal">Enter course</button>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- SUBSCRIPTION LIBRARY -->
-<section id="library">
-  <div class="wrap">
-    <h2>Members Library</h2>
-    <p class="lede">Permanent <strong>Foundations</strong> + weekly rotating <strong>Extras</strong>. Platinum includes live access.</p>
-
-    <h3>Foundations (always available)</h3>
-    <div class="grid" id="foundationsGrid">
-      <article class="card gate member">
-        <figure>
-          <img loading="lazy" src="data:image/svg+xml;utf8,
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'>
-              <rect width='100%' height='100%' fill='%23cfd6e6'/></svg>" alt="Foundations: Line & Proportion">
-          <figcaption class="visually-hidden">Line & Proportion</figcaption>
-        </figure>
-        <div class="meta"><h3>Line & Proportion</h3><p>Measuring, gesture, accuracy.</p></div>
-      </article>
-      <article class="card gate member">
-        <figure>
-          <img loading="lazy" src="data:image/svg+xml;utf8,
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'>
-              <rect width='100%' height='100%' fill='%23dbe0ee'/></svg>" alt="Foundations: Value & Edges">
-        </figure>
-        <div class="meta"><h3>Value & Edges</h3><p>Light logic, edge control.</p></div>
-      </article>
-      <article class="card gate member">
-        <figure>
-          <img loading="lazy" src="data:image/svg+xml;utf8,
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'>
-              <rect width='100%' height='100%' fill='%23e8eaf1'/></svg>" alt="Foundations: Composition">
-        </figure>
-        <div class="meta"><h3>Composition</h3><p>Balance, rhythm, focal hierarchy.</p></div>
-      </article>
-    </div>
-
-    <h3 style="margin-top:18px;">Weekly Extras (rotate every ~2 years)</h3>
+    <h2>Learn with Jody</h2>
     <div class="list">
-      <article class="item gate member">
-        <h3>Gloves & Wire: Unconventional Tools</h3>
-        <p>Experiment set with found materials. <span class="badge">New this week</span></p>
-      </article>
-      <article class="item gate member">
-        <h3>From Sound to Line (Mini)</h3>
-        <p>Short demo translating audio gestures into marks. <span class="badge">Expires: 2027-05-01</span></p>
-      </article>
+      <article class="item"><h3>One-off Online Classes</h3><p>90-minute focused sessions; recording available for 48 hours.</p></article>
+      <article class="item"><h3>30-Day Courses</h3><p>Structured programmes with weekly check-ins and assignments.</p></article>
+      <article class="item"><h3>Subscription — Foundations + Extras</h3><p>Core fundamentals always available; weekly Extras rotate on a ~2-year cycle.</p></article>
+      <article class="item"><h3>Platinum — All Access + Live</h3><p>Everything in Subscription plus 1–2 live classes each month.</p></article>
     </div>
-    <p class="footnote">Tip: add/remove Extras weekly. Use “expires” text as a hint for rotation.</p>
   </div>
 </section>
 
-<!-- PRICING -->
+<!-- ====== PRICING ====== -->
 <section id="pricing">
   <div class="wrap">
     <h2>Pricing</h2>
-    <p class="lede">Examples in AUD, based on current workshop rates (~$500–800/day for ~10 people).</p>
+    <p class="lede">AUD examples aligned with in-person benchmark (~A$500–800/day for ~10 people).</p>
     <div class="pricing">
       <div class="tier">
         <h3>One-Off Class</h3>
         <div class="price">A$25–40</div>
-        <ul class="feat">
-          <li><span class="tick">✓</span> 90-min live session</li>
-          <li><span class="tick">✓</span> 48h recording access</li>
-          <li><span class="x">–</span> Library access</li>
-          <li><span class="x">–</span> Live access every month</li>
-        </ul>
-        <a class="btn pay-btn" href="#" data-price-once="25-40">Buy a class</a>
+        <ul><li>90-minute live</li><li>48h recording</li></ul>
+        <a class="btn" href="#contact">Buy a class</a>
       </div>
       <div class="tier">
         <h3>30-Day Course</h3>
         <div class="price">A$120–200</div>
-        <ul class="feat">
-          <li><span class="tick">✓</span> Structured daily/weekly lessons</li>
-          <li><span class="tick">✓</span> Assignments + check-ins</li>
-          <li><span class="tick">✓</span> Completion certificate</li>
-        </ul>
-        <a class="btn pay-btn" href="#" data-price-course="120-200">Enrol now</a>
+        <ul><li>Structured lessons</li><li>Assignments + check-ins</li></ul>
+        <a class="btn" href="#contact">Enrol now</a>
       </div>
       <div class="tier">
         <h3>Subscription</h3>
         <div class="price">A$25–35 / mo</div>
-        <ul class="feat">
-          <li><span class="tick">✓</span> Foundations library (permanent)</li>
-          <li><span class="tick">✓</span> Weekly rotating Extras</li>
-          <li><span class="x">–</span> Live classes included</li>
-        </ul>
-        <a class="btn pay-btn" href="#" data-price-sub="25-35">Start membership</a>
+        <ul><li>Foundations (permanent)</li><li>Weekly Extras</li></ul>
+        <a class="btn" href="#contact">Start membership</a>
         <div class="footnote">A$250–300 / year</div>
       </div>
       <div class="tier">
         <h3>Platinum</h3>
         <div class="price">A$70–100 / mo</div>
-        <ul class="feat">
-          <li><span class="tick">✓</span> Everything in Subscription</li>
-          <li><span class="tick">✓</span> 1–2 live classes / month</li>
-          <li><span class="tick">✓</span> Class recordings included</li>
-        </ul>
-        <a class="btn pay-btn" href="#" data-price-plat="70-100">Go Platinum</a>
+        <ul><li>Everything in Subscription</li><li>1–2 live classes / month</li></ul>
+        <a class="btn" href="#contact">Go Platinum</a>
         <div class="footnote">A$700–900 / year</div>
       </div>
     </div>
-    <p class="footnote">Payments should go to external checkout (Stripe/PayPal) to avoid app-store fees.</p>
   </div>
 </section>
 
-<!-- MEMBERS -->
-<section id="members">
+<!-- ====== ABOUT ====== -->
+<section id="about">
   <div class="wrap">
-    <h2>Members Area (demo)</h2>
-    <p class="lede">This shows how content can unlock after purchase. Use the quick buttons to simulate a login tier.</p>
-
-    <div class="meta-row" style="margin-bottom:12px">
-      <button class="btn" data-login="guest">Sign in as Guest</button>
-      <button class="btn" data-login="member">Sign in as Member</button>
-      <button class="btn ok" data-login="platinum">Sign in as Platinum</button>
-      <button class="btn warn" id="logoutBtn">Sign out</button>
-      <span id="whoami" class="badge">Status: guest</span>
-    </div>
-
+    <h2>About</h2>
     <div class="list">
       <article class="item">
-        <h3>Live Class Room</h3>
-        <p>Embed Zoom/Vimeo here. <strong>Platinum only.</strong></p>
-        <div class="meta-row"><button class="btn gate platinum" data-open="live-room">Enter live room</button></div>
-      </article>
-      <article class="item">
-        <h3>Members Library Access</h3>
-        <p>Unlocked for Subscription + Platinum. Guests see previews only.</p>
-        <div class="meta-row"><button class="btn gate member" data-open="library-area">Open library</button></div>
+        <p><strong>Jody Graham</strong> is a Sydney-based multidisciplinary artist working across drawing, mixed media, installation and performance, often using unconventional tools and found materials. Themes include the broken and discarded, regeneration after fire, and Australian birdlife. Series include <em>Getting Pinked</em>, <em>Burnt</em>, <em>Fly like a Bird</em>, <em>Behind the Facade</em>, and performance projects such as <em>Sound–Drawing</em>. Recent activity includes <em>Burnt into Memory</em> (Hawkesbury Regional Gallery, Jun–Aug 2025) and <em>Drawn from Memory</em> (Lost Bear Gallery, Aug 2025).  [oai_citation:0‡jodygraham.art](https://jodygraham.art/?utm_source=chatgpt.com) [oai_citation:1‡Hawkesbury City Council](https://www.hawkesbury.nsw.gov.au/gallery/exhibitions/exhibitions/2025-exhibitions/burnt-into-memory?utm_source=chatgpt.com)</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- ====== PRESS / EXHIBITIONS ====== -->
+<section id="press">
+  <div class="wrap">
+    <h2>Press & Exhibitions (selected)</h2>
+    <div class="list">
+      <article class="item"><h3>Burnt into Memory</h3><p>Hawkesbury Regional Gallery, 7 Jun – 17 Aug 2025 (group).  [oai_citation:2‡Hawkesbury City Council](https://www.hawkesbury.nsw.gov.au/gallery/exhibitions/exhibitions/2025-exhibitions/burnt-into-memory?utm_source=chatgpt.com)</p></article>
+      <article class="item"><h3>Getting Pinked</h3><p>Lost Bear Gallery, 4 Dec 2021 – 16 Jan 2022 (solo).  [oai_citation:3‡jodygraham.art](https://jodygraham.art/getting-pinked-exhibition/?utm_source=chatgpt.com)</p></article>
+      <article class="item"><h3>Fly like a Bird</h3><p>Nanda/Hobbs (2021) — new works release.  [oai_citation:4‡Nanda\Hobbs Contemporary](https://www.nandahobbs.com/post/new-works-by-jody-grahamfly-like-a-bird?utm_source=chatgpt.com)</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CONTACT ====== -->
 <section id="contact">
   <div class="wrap">
     <h2>Contact</h2>
     <div class="list">
-      <div class="item">
-        <p><strong>Email:</strong> <a href="mailto:hello@example.com">hello@example.com</a></p>
-        <p><strong>Instagram:</strong> <a href="#" rel="noopener">@artist_handle</a></p>
-      </div>
+      <article class="item">
+        <p><strong>Studios & enquiries:</strong> <a href="mailto:studio@jodygraham.art">studio@jodygraham.art</a></p>
+        <p><strong>Galleries:</strong> Nanda/Hobbs • Lost Bear • Linton & Kay.  [oai_citation:5‡jodygraham.art](https://jodygraham.art/about/?utm_source=chatgpt.com)</p>
+      </article>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">© <span id="y"></span> Artist Name. All rights reserved.</div>
+  <div class="wrap">© <span id="y"></span> Jody Graham. All rights reserved.</div>
 </footer>
 
-<!-- LIGHTBOX -->
+<!-- ====== LIGHTBOX ====== -->
 <div class="lightbox" id="lightbox" aria-hidden="true" aria-modal="true" role="dialog">
   <div class="lb-dialog" role="document">
-    <div class="lb-media"><img id="lbImg" alt="" /></div>
+    <div class="lb-media"><img id="lbImg" alt=""></div>
     <div class="lb-caption">
       <div>
-        <div class="lb-title" id="lbTitle">Title</div>
-        <div class="lb-note" id="lbNote" style="color:var(--muted);font-size:var(--s-1)"></div>
+        <div class="lb-title" id="lbTitle" style="font-weight:700">Title</div>
+        <div class="lb-note" id="lbNote" style="color:var(--muted);font-size:.95rem"></div>
       </div>
-      <button class="lb-close" id="lbClose" aria-label="Close">Close</button>
+      <div class="lb-links">
+        <a id="lbLink" class="btn" rel="noopener" target="_blank">View on jodygraham.art</a>
+        <button class="btn" id="lbClose">Close</button>
+      </div>
     </div>
   </div>
 </div>
 
-<script>
-  // Year
-  document.getElementById('y').textContent = new Date().getFullYear();
+<!-- ====== SCRIPTS ====== -->
+<script type="module">
+/* ---------- Mobile menu ---------- */
+const toggle = document.querySelector('.menu-toggle');
+const menu = document.getElementById('mainmenu');
+if (toggle) toggle.addEventListener('click', ()=> {
+  const open = menu.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+document.getElementById('y').textContent = new Date().getFullYear();
 
-  // Mobile menu
-  const toggle = document.querySelector('.menu-toggle');
-  const menu = document.getElementById('mainmenu');
-  if (toggle) toggle.addEventListener('click', () => {
-    const open = menu.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  // Works filters
-  const grid = document.getElementById('workGrid');
-  document.querySelectorAll('.filters .pill').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.filters .pill').forEach(b=>b.setAttribute('aria-pressed','false'));
-      btn.setAttribute('aria-pressed','true');
-      const f = btn.dataset.filter;
-      [...grid.children].forEach(card=>{
-        const pass = (f==='all') || (card.dataset.collection===f);
-        card.style.display = pass ? '' : 'none';
-      });
-    });
-  });
-
-  // Lightbox
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lbImg');
-  const lbTitle = document.getElementById('lbTitle');
-  const lbNote = document.getElementById('lbNote');
-  const lbClose = document.getElementById('lbClose');
-  grid.addEventListener('click', (e)=>{
-    const article = e.target.closest('.card');
-    if(!article) return;
-    const img = article.querySelector('img');
-    const title = article.querySelector('h3')?.textContent || '';
-    const note = article.querySelector('.meta p')?.textContent || '';
-    lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt || '';
-    lbTitle.textContent = title; lbNote.textContent = note;
-    lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
-  });
-  lbClose.addEventListener('click', closeLB);
-  lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLB(); });
-  window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) closeLB(); });
-  function closeLB(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; lbImg.src=''; }
-
-  // Membership demo (localStorage)
-  const STATUS_KEY = 'demo_membership_tier';
-  const who = document.getElementById('whoami');
-  const logoutBtn = document.getElementById('logoutBtn');
-  document.querySelectorAll('[data-login]').forEach(b=>{
-    b.addEventListener('click', ()=> setTier(b.dataset.login));
-  });
-  logoutBtn.addEventListener('click', ()=> setTier('guest'));
-
-  function setTier(t){
-    localStorage.setItem(STATUS_KEY, t);
-    who.textContent = `Status: ${t}`;
-    // Gate elements
-    document.querySelectorAll('.gate').forEach(el=>{
-      const needsPlatinum = el.classList.contains('platinum');
-      const needsMember = el.classList.contains('member');
-      let allow = false;
-      if (t === 'platinum') allow = true;
-      else if (t === 'member' && needsMember && !needsPlatinum) allow = true;
-      // style lock
-      el.style.pointerEvents = allow ? '' : 'none';
-      el.style.opacity = allow ? '1' : '.45';
-      el.title = allow ? '' : 'Locked — upgrade to access';
-    });
+/* ---------- Catalog data ----------
+   You can append more pieces here anytime.
+   Each item links back to the canonical page on jodygraham.art
+*/
+const ARTWORKS = [
+  {
+    id:"gp-lbg-2021-catalogue",
+    title:"Getting Pinked — Lost Bear Gallery",
+    year:2021,
+    medium:"Mixed media on paper (series)",
+    size_cm:"",
+    collection:"Getting Pinked",
+    status:"series",
+    page:"https://jodygraham.art/work/getting-pinked-collection/",
+    // representative image from her site will be loaded via the card <img> below:
+    image:"https://jodygraham.art/wp-content/uploads/2021/10/Getting-Pinked-hero.jpg"
+  },
+  {
+    id:"burnt-series",
+    title:"Burnt — post-bushfire materials",
+    year:2020,
+    medium:"Drawings with burnt branches & found matter",
+    size_cm:"",
+    collection:"Burnt",
+    status:"series",
+    page:"https://jodygraham.art/work/burnt/",
+    image:"https://jodygraham.art/wp-content/uploads/2020/07/Burnt-hero.jpg"
+  },
+  {
+    id:"fly-bird",
+    title:"Fly like a Bird",
+    year:2021,
+    medium:"Charcoal from Black Summer fires (birds)",
+    size_cm:"",
+    collection:"Fly like a Bird",
+    status:"series",
+    page:"https://jodygraham.art/work/fly-like-a-bird/",
+    image:"https://jodygraham.art/wp-content/uploads/2021/09/Fly-like-a-Bird-hero.jpg"
+  },
+  {
+    id:"facade",
+    title:"Behind the Facade",
+    year:2024,
+    medium:"Charcoal and mixed media",
+    size_cm:"",
+    collection:"Behind the Facade",
+    status:"series",
+    page:"https://jodygraham.art/work/behind-the-facade/",
+    image:"https://jodygraham.art/wp-content/uploads/2025/04/Behind-the-Facade-hero.jpg"
   }
-  setTier(localStorage.getItem(STATUS_KEY) || 'guest');
+];
 
-  // “Join/Watch” buttons -> check tier (Platinum includes one-offs)
-  document.querySelectorAll('[data-join]').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      const tier = localStorage.getItem(STATUS_KEY) || 'guest';
-      if (tier === 'platinum'){
-        alert('Access granted (Platinum). Here you would open the embedded live/recording.');
-      } else {
-        alert('Locked. Buy this class or upgrade to Platinum.');
-      }
+/* ---------- Gallery rendering ---------- */
+const grid = document.getElementById('galleryGrid');
+
+function card(a){
+  // Image: use given URL; if it fails load, hide image block gracefully
+  return `
+  <article class="card" data-collection="${a.collection}">
+    <figure>
+      <img loading="lazy" src="${a.image}" alt="${a.title}">
+    </figure>
+    <div class="meta">
+      <h3>${a.title}</h3>
+      <p>${[a.medium,a.size_cm,a.year].filter(Boolean).join(' • ')}</p>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn" href="${a.page}" target="_blank" rel="noopener">Open on jodygraham.art</a>
+        ${a.usdz || a.glb ? `<a class="btn ok" href="#ar/${a.id}">View on your wall (AR)</a>` : ''}
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderGallery(filter){
+  const items = ARTWORKS.filter(a => !filter || filter==='all' || a.collection===filter);
+  grid.innerHTML = items.map(card).join('');
+  // click to open lightbox
+  grid.querySelectorAll('.card').forEach(cardEl=>{
+    cardEl.addEventListener('click', e=>{
+      if(e.target.closest('a')) return; // let buttons work
+      const idx = [...grid.children].indexOf(cardEl);
+      const a = items[idx]; openLB(a);
     });
   });
+}
+renderGallery();
 
-  // “Enter course” buttons -> check enrolment (demo)
-  document.querySelectorAll('[data-join^="course-"]').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      alert('Course access is gated. After payment, enrolment unlocks this area.');
-    });
+document.querySelectorAll('#gallery .pill').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#gallery .pill').forEach(b=>b.setAttribute('aria-pressed','false'));
+    btn.setAttribute('aria-pressed','true');
+    renderGallery(btn.dataset.filter);
   });
+});
 
-  // Payment buttons placeholder
-  document.querySelectorAll('.pay-btn').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      e.preventDefault();
-      alert('Connect this button to your Stripe/PayPal checkout URL.');
-      // Example:
-      // window.location.href = 'https://checkout.stripe.com/pay/your_product';
-    });
-  });
+/* ---------- Lightbox ---------- */
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbTitle = document.getElementById('lbTitle');
+const lbNote = document.getElementById('lbNote');
+const lbLink = document.getElementById('lbLink');
+document.getElementById('lbClose').addEventListener('click', closeLB);
+lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLB(); });
+window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && lb.classList.contains('open')) closeLB(); });
 
-  // Keyboard focus outlines only when tabbing
-  (function(){
-    function addMod(){ document.documentElement.classList.add('user-is-tabbing'); }
-    function rmMod(){ document.documentElement.classList.remove('user-is-tabbing'); }
-    window.addEventListener('keydown', (e)=>{ if(e.key==='Tab') addMod(); }, {once:true});
-    window.addEventListener('mousedown', rmMod);
-  })();
+function openLB(a){
+  if(a.image){ lbImg.src = a.image; lbImg.alt = a.title; } else { lbImg.removeAttribute('src'); lbImg.alt=''; }
+  lbTitle.textContent = a.title;
+  lbNote.textContent = [a.collection, a.medium, a.size_cm, a.year].filter(Boolean).join(' • ');
+  lbLink.href = a.page; lbLink.textContent = 'View on jodygraham.art';
+  lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+}
+function closeLB(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; lbImg.removeAttribute('src'); }
+
+/* ---------- Virtual Gallery (Three.js minimal) ---------- */
+import * as THREE from 'https://unpkg.com/three@0.161/build/three.module.js';
+const vgCanvas = document.getElementById('vg');
+const renderer = new THREE.WebGLRenderer({canvas:vgCanvas, antialias:true});
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x111111);
+const camera = new THREE.PerspectiveCamera(60, 16/9, .1, 100);
+camera.position.set(0,1.6,6);
+const ambient = new THREE.AmbientLight(0xffffff,.9), hemi = new THREE.HemisphereLight(0xffffff,0x444444,.4);
+scene.add(ambient,hemi);
+// room
+const room = new THREE.Mesh(new THREE.BoxGeometry(12,3.2,12), new THREE.MeshStandardMaterial({color:0xffffff, side:THREE.BackSide}));
+scene.add(room);
+
+// Resize
+function fit(){ const r = vgCanvas.getBoundingClientRect(); renderer.setSize(r.width, r.height); camera.aspect = r.width/r.height; camera.updateProjectionMatrix(); }
+new ResizeObserver(fit).observe(vgCanvas); fit();
+
+// Artwork planes
+const loader = new THREE.TextureLoader();
+function framePlane({img,x,y,z,ry=0,w=1.6,h=1.2,meta}){
+  const tex = loader.load(img);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  const mat = new THREE.MeshBasicMaterial({map:tex});
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w,h), mat);
+  mesh.position.set(x,y,z); mesh.rotation.y = ry; mesh.userData = meta;
+  // simple “frame”
+  const frame = new THREE.Mesh(new THREE.PlaneGeometry(w+0.06,h+0.06), new THREE.MeshBasicMaterial({color:0x000000}));
+  frame.position.copy(mesh.position); frame.rotation.copy(mesh.rotation); frame.position.z += 0.001;
+  scene.add(frame, mesh);
+  return mesh;
+}
+
+// Map catalog items into the room (use same representative images)
+const vgItems = [
+  {img: ARTWORKS[0].image, meta: ARTWORKS[0], x:-3.5, y:1.6, z:-5.8},
+  {img: ARTWORKS[1].image, meta: ARTWORKS[1], x: 0.0, y:1.6, z:-5.8},
+  {img: ARTWORKS[2].image, meta: ARTWORKS[2], x: 3.5, y:1.6, z:-5.8},
+  {img: ARTWORKS[3].image, meta: ARTWORKS[3], x:-5.8, y:1.6, z: 0.0, ry: Math.PI/2}
+].map(cfg => framePlane(cfg));
+
+// Basic controls: click to open
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+vgCanvas.addEventListener('click', (ev)=>{
+  const rect = vgCanvas.getBoundingClientRect();
+  mouse.x = ((ev.clientX-rect.left)/rect.width)*2-1;
+  mouse.y = -((ev.clientY-rect.top)/rect.height)*2+1;
+  ray.setFromCamera(mouse, camera);
+  const hit = ray.intersectObjects(scene.children).find(o=>o.object.userData && o.object.userData.page);
+  if(hit){ openLB(hit.object.userData); }
+});
+
+// slow orbit
+let t=0; function loop(){ t+=0.003; camera.position.x = Math.sin(t)*6; camera.position.z = Math.cos(t)*6; camera.lookAt(0,1.6,0); renderer.render(scene,camera); requestAnimationFrame(loop); }
+loop();
+
+/* ---------- Optional AR: per item (ready when you have assets) ----------
+   To enable for a piece, add `usdz` and `glb` fields to its ARTWORKS entry,
+   and create a <model-viewer> on demand (left out by default here to keep the page lean).
+*/
 </script>
 
-<style>
-  :root:not(.user-is-tabbing) *:focus{outline:none!important}
-</style>
+<!-- JSON-LD Person -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"Person",
+  "name":"Jody Graham","jobTitle":"Artist","url":"https://jodygraham.art",
+  "description":"Sydney-based multidisciplinary artist working across drawing, mixed media, installation and performance.",
+  "sameAs":["https://jodygraham.art","https://nandahobbs.com","https://lostbeargallery.com.au","https://www.instagram.com/"]
+}
+</script>
 </body>
 </html>
