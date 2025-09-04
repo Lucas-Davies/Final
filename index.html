@@ -181,6 +181,15 @@
   </div>
 </section>
 
+  <!-- ====== NEWS / UPCOMING ====== -->
+<section id="news">
+  <div class="wrap">
+    <h2>News & Upcoming</h2>
+    <p class="lede">Shows, releases, and live classes coming up.</p>
+    <div id="newsList" class="list"></div>
+  </div>
+</section>
+  
 <!-- ====== PRESS / EXHIBITIONS ====== -->
 <section id="press">
   <div class="wrap">
@@ -290,6 +299,43 @@ const ARTWORKS = [
   }
 ];
 
+  /* ---------- News / Upcoming (edit items here) ---------- */
+const NEWS = [
+  // EXAMPLES — edit freely, newest first
+  {
+    date: "2025-09-20",
+    title: "Online Class — Drawing with Found Tools (90 min)",
+    note: "Recording available for 48 hours.",
+    link: "#contact", // or an external URL
+    cta: "Register"
+  },
+  {
+    date: "2025-10-05",
+    title: "Virtual Gallery refresh — ‘Behind the Facade’ wall",
+    note: "New works added to the WebGL room.",
+    link: "#virtual",
+    cta: "View"
+  },
+  {
+    date: "2025-11-15",
+    title: "Workshop — Burnt into Memory (in person)",
+    note: "Hawkesbury region; details TBA.",
+    link: "#contact",
+    cta: "Enquire"
+  }
+];
+function renderNews(){
+  const wrap = (n)=>`
+    <article class="item">
+      <h3>${n.title}</h3>
+      <p><strong>${new Date(n.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}</strong> — ${n.note||''}</p>
+      ${n.link ? `<a class="btn" href="${n.link}" ${n.link.startsWith('http')?'target="_blank" rel="noopener"':''}>${n.cta||'Learn more'}</a>` : ''}
+    </article>`;
+  const el = document.getElementById('newsList');
+  if(el) el.innerHTML = NEWS.map(wrap).join('');
+}
+renderNews();
+  
 /* ---------- Gallery rendering ---------- */
 const grid = document.getElementById('galleryGrid');
 
